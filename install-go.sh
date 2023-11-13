@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# Install curl
+sudo apt install curl
+
 # Prompt the user for the Go version
 read -p "Enter the Go version you want to install (e.g., 1.18.1): " GO_VERSION
+
+# Get CPU architecture
+cpuArch = arch
+
+# Latest Go programming language
+release=$(curl --silent https://go.dev/doc/devel/release | grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1 | sed 's/go//') && echo $release
 
 # Check if the user entered a version
 if [[ -z "$GO_VERSION" ]]; then
@@ -10,7 +19,7 @@ if [[ -z "$GO_VERSION" ]]; then
 fi
 
 # Download Go for ARM64
-wget https://dl.google.com/go/go${GO_VERSION}.linux-arm64.tar.gz
+curl -O  https://dl.google.com/go/go${GO_VERSION}.linux-${cpuArch}.tar.gz
 
 
 # Check if download was successful
