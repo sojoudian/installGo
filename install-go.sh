@@ -9,11 +9,13 @@ if [ "$cpuArch" = "aarch64" ]; then
 	    cpuArch="arm64"
 fi
 
+# Get Operating system
+osys=%(uname)
 # Latest Go programming language version
 release=$(curl --silent https://go.dev/doc/devel/release | grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1 | sed 's/go//')
 
 # Prompt the user for the Go version
-read -p "Enter the Go version you want to install (e.g., 1.18.1) or press enter to install the latest version ($release): " GO_VERSION
+read -p "Enter the Go version you want to install (e.g., 1.20.1) or press enter to install the latest version ($release): " GO_VERSION
 
 # Use latest version if the user did not enter a version
 if [[ -z "$GO_VERSION" ]]; then
@@ -22,9 +24,9 @@ if [[ -z "$GO_VERSION" ]]; then
 fi
 
 # Download Go for the specified architecture
-curl -OL https://dl.google.com/go/go${GO_VERSION}.linux-${cpuArch}.tar.gz
+curl -OL https://dl.google.com/go/go${GO_VERSION}.${osys}-${cpuArch}.tar.gz
 
-b=go${GO_VERSION}.linux-${cpuArch}.tar.gz
+b=go${GO_VERSION}.${osys}-${cpuArch}.tar.gz
 du -hcs $b
 
 # Check if download was successful
