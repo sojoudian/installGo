@@ -55,18 +55,22 @@ if [ $? -ne 0 ]; then
 fi
 
 # Extract the tarball
-sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-${cpuArch}.tar.gz
+sudo tar -C /usr/local -xzf go${GO_VERSION}.${osys}-${cpuArch}.tar.gz
 
 # Remove the tarball
-rm go${GO_VERSION}.linux-${cpuArch}.tar.gz
+rm go${GO_VERSION}.${osys}-${cpuArch}.tar.gz
 
 # Set Go environment variables
 echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.zshrc
 echo "export GOROOT=/usr/local/go" >> $HOME/.zshrc
 echo "export GOPATH=\$HOME/go" >> $HOME/.zshrc
 
+echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.bashrc
+echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
+echo "export GOPATH=\$HOME/go" >> $HOME/.bashrc
+
 # Apply environment variables
 source $HOME/.zshrc
-
+source $HOME/.bashrc
 # Print Go version to verify installation
 go version
