@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# Function to check if a command exists
+command_exists() {
+    command -v "$@" > /dev/null 2>&1
+}
+
+# Install curl if not already installed
+if ! command_exists curl; then
+    if command_exists apt; then
+        sudo apt install -y curl
+    elif command_exists yum; then
+        sudo yum install -y curl
+    elif command_exists dnf; then
+        sudo dnf install -y curl
+    else
+        echo "Package manager not supported. Install curl manually."
+        exit 1
+    fi
+fi
+
 # Install curl
 sudo apt install curl
 
