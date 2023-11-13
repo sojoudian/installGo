@@ -10,7 +10,7 @@ if [ "$cpuArch" = "aarch64" ]; then
 fi
 
 # Get Operating system
-osys=%(uname)
+osys=$(uname)
 # Latest Go programming language version
 release=$(curl --silent https://go.dev/doc/devel/release | grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1 | sed 's/go//')
 
